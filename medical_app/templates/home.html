@@ -179,6 +179,147 @@
             0% { opacity: 0; }
             100% { opacity: 1; }
         }
+        /*about section style*/
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f4f7fc;
+            color: #333;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Header Styles */
+        header {
+            background: linear-gradient(90deg, #007bff, #0056b3);
+            color: white;
+            padding: 25px 0;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        header nav ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        header nav ul li {
+            display: inline;
+            margin: 0 20px;
+        }
+
+        header nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        header nav ul li a:hover {
+            color: #ffcc00;
+        }
+
+        /* Main Section Styles */
+        .main-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 40px;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .content {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            transition: transform 0.3s;
+        }
+
+        .content:hover {
+            transform: translateY(-10px);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #007bff;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+
+        ul li {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .technology-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .technology-list li {
+            background-color: #007bff;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 25px;
+            font-size: 1rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s;
+        }
+
+        .technology-list li:hover {
+            background-color: #0056b3;
+        }
+
+        .footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+            font-size: 1rem;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+                padding: 20px;
+            }
+        }
+
+
 
     </style>
 </head>
@@ -188,7 +329,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <a href="#" class="navbar-brand">MedWise AI</a>
         <div class="ml-auto">
-            <a href="#">About</a>
+            <a href="{{ url_for('about')}}">About</a>
             <a href="{{ url_for('login') }}">Login</a>
         </div>
     </nav>
@@ -281,6 +422,53 @@
             </div>
         </div>
     </div>
+    <!--about section content-->>
+    <div class="main-container">
+        <div class="content" id="about">
+            <h1>About This Application</h1>
+            <p>This web application is designed to provide users with a seamless, interactive, and secure platform to manage their health data and medical records.</p>
+
+            <h2>User Profile and Medical Record Management</h2>
+            <p><strong>Description:</strong> Users can create profiles, store personal health data, and upload medical test reports, making health records accessible at any time. This feature ensures a streamlined experience for managing personal healthcare information securely.</p>
+            <ul class="technology-list">
+                <li>HTML</li>
+                <li>CSS</li>
+                <li>JavaScript</li>
+                <li>Flask</li>
+                <li>MySQL/PostgreSQL</li>
+            </ul>
+
+            <h2>Image Analysis for Disease Detection</h2>
+            <p><strong>Description:</strong> Uses image analysis to detect diseases like cancer and knee osteoarthritis by analyzing MRI and CT scans. A Convolutional Neural Network (CNN) identifies disease-specific patterns, assisting in early detection and treatment.</p>
+            <ul class="technology-list">
+                <li>TensorFlow</li>
+                <li>Flask</li>
+                <li>OpenCV</li>
+            </ul>
+
+            <h2>Disease Prediction</h2>
+            <p><strong>Description:</strong> Uses Support Vector Machine (SVM) to predict diseases based on user input, offering early risk assessments for health concerns.</p>
+            <ul class="technology-list">
+                <li>Scikit-Learn</li>
+                <li>Flask</li>
+                <li>SQL</li>
+            </ul>
+
+            <h2>Medical Chatbot</h2>
+            <p><strong>Description:</strong> A RAG-powered chatbot built with LangChain, OpenAI, and Groq for real-time medical support and answering healthcare-related queries.</p>
+            <ul class="technology-list">
+                <li>LangChain</li>
+                <li>OpenAI</li>
+                <li>Groq</li>
+                <li>Flask</li>
+            </ul>
+
+            <h3>Developed by:</h3>
+            <p>Subhashit Thapa and Nikhil Kathait</p>
+        </div>
+    </div>
+
+
 
     <!-- Footer -->
     <footer>
@@ -291,3 +479,4 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
