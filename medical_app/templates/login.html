@@ -5,21 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('{{ url_for('static', filename='images/bg2.png') }}');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: #333;
+        }
+        .login-container {
+            max-width: 450px;
+            padding: 2.5rem;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.9);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        .login-container h2 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #007bff;
+        }
+        .form-control {
+            border-radius: 5px;
+        }
+        .btn-primary {
+            width: 100%;
+            border-radius: 5px;
+        }
+        .register-link {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: #007bff;
+            text-decoration: none;
+        }
+        .register-link:hover {
+            text-decoration: underline;
+        }
+    </style>
 </head>
 <body>
-    <div class="container mt-4">
-        <h2>Login Page</h2>
+    <div class="login-container">
+        <h2>Login</h2>
         <form method="POST">
             <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter your email">
+                <label for="User" class="sr-only">User Name</label>
+                <input type="User" class="form-control" id="User" placeholder="UserName" required>
             </div>
             <div class="form-group">
-                <label for="password">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Enter your password">
+                <label for="password" class="sr-only">Password</label>
+                <input type="password" class="form-control" id="password" placeholder="Password" required>
             </div>
-            <button type="submit" class="btn btn-primary">Login</button>
+            <button type="submit" class="btn btn-primary mt-3">Login</button>
+            <a href="/register" class="register-link">Don't have an account? Register</a>
         </form>
     </div>
 </body>
 </html>
+
+
