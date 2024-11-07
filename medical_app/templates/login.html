@@ -5,50 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        body {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            margin: 0;
-            background-image: url('{{ url_for('static', filename='images/bg2.png') }}');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            color: #333;
-        }
-        .login-container {
-            max-width: 450px;
-            padding: 2.5rem;
-            border-radius: 8px;
-            background-color: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-        .login-container h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-            text-align: center;
-            color: #007bff;
-        }
-        .form-control {
-            border-radius: 5px;
-        }
-        .btn-primary {
-            width: 100%;
-            border-radius: 5px;
-        }
-        .register-link {
-            display: block;
-            text-align: center;
-            margin-top: 1rem;
-            color: #007bff;
-            text-decoration: none;
-        }
-        .register-link:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login-signup.css') }}">
+   
 </head>
 <body>
     <div class="login-container">
