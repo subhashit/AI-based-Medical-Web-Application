@@ -26,9 +26,11 @@ def getResult(img):
     image = image.resize((64,64))
     image = np.array(image)
     input_img = np.expand_dims(image, axis=0)
-    result = model.predict(input_img)
-    predicted_class = np.argmax(result, axis = 1)
-    return predicted_class
+
+    predicition = model.predict(input_img)[0][0]
+
+    result = 1 if predicition >= 0.5 else 0
+    return result
 
 @app.route('/index', methods = ['GET'])
 def index():
@@ -40,13 +42,18 @@ def upload():
         f = request.files['file']
 
         basepath = os.path.dirname(__file__)
-        file_path = os.path.join(
-            basepath, 'uploads', secure_filename(f.filename))
+        upload_folder = os.path.join(basepath, 'uploads')
+        if not os.path.exists(upload_folder):
+            os.makedirs(upload_folder)
+
+        file_path = os.path.join(upload_folder, secure_filename(f.filename))
         f.save(file_path)
-        value=getResult(file_path)
-        result=get_className(value) 
+
+        value = getResult(file_path)
+        result = get_className(value) 
         return result
-    return None
+    
+    return render_template('index.html')
 
 # Home Route
 @app.route('/')
