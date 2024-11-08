@@ -32,7 +32,7 @@ def getResult(img):
     result = 1 if predicition >= 0.5 else 0
     return result
 
-@app.route('/index', methods = ['GET'])
+@app.route('/', methods = ['GET'])
 def index():
     return render_template('index.html')
 

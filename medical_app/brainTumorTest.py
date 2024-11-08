@@ -4,7 +4,7 @@ from PIL import Image
 from keras.models import load_model
 
 # Load the model
-model = load_model('brainTumor.h5')
+model = load_model('brainTumor.keras')
 
 # Load and process the image
 image = cv2.imread('D:\\Major Project\\AI-based-Medical-Web-Application\\medical_app\\pred\\pred0.jpg')
