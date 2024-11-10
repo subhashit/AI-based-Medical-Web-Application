@@ -11,7 +11,7 @@ from flask import Flask, request, render_template
 # Initialize the Flask app
 app = Flask(__name__)
 
-model = load_model('BrainTumor.h5')
+model = load_model('BrainTumor.keras')
 print('Model loaded. Check http://127.0.0.1:5000/')
 
 def get_className(classNo):
@@ -32,7 +32,7 @@ def getResult(img):
     result = 1 if predicition >= 0.5 else 0
     return result
 
-@app.route('/index', methods = ['GET'])
+@app.route('/', methods = ['GET'])
 def index():
     return render_template('index.html')
 
