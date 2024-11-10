@@ -9,17 +9,6 @@
     <style>
         body {
             background-image: url("{{ url_for('static', filename='images/bg2.png') }}");
-            background-size: cover;
-            background-position: center;
-        }
-        .flash-messages {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 400px;
-            z-index: 1050;
         }
     </style>
 </head>
@@ -61,6 +50,9 @@
 
             <!-- Submit Button -->
             <button type="submit" class="btn btn-primary mt-3">Login</button>
+            <p class="register-link">Don't have an account?
+                <a href="{{ url_for('register') }}" class="register-link">Register</a>
+            </p>
         </form>
     </div>
 
