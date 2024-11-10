@@ -2,10 +2,133 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        .dashboard-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 1.5rem;
+            color: #343a40;
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        .card-icon {
+            font-size: 3rem;
+            color: #007bff;
+            margin-bottom: 1rem;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+        .card-text {
+            color: #6c757d;
+        }
+        .row {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        .col-md-3 {
+            display: flex;
+            justify-content: center;
+        }
+        .card-body {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome, {{ name }}!</h1>
-    <a href="{{ url_for('logout') }}">Logout</a>
+
+<div class="dashboard-container">
+    <h1 class="dashboard-title">Medical Web App Dashboard</h1>
+    <div class="row">
+        <!-- User Profile Card -->
+        <div class="col-md-3 mb-4">
+            <div class="card bg-light p-4">
+                <div class="card-body">
+                    <div class="card-icon">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <h5 class="card-title">User Profile</h5>
+                    <p class="card-text">Manage and view your personal details and medical history.</p>
+                    <a href="{{ url_for('user_profile') }}" class="btn btn-primary">Go to Profile</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Image Analysis Card -->
+        <div class="col-md-3 mb-4">
+            <div class="card bg-light p-4">
+                <div class="card-body">
+                    <div class="card-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <h5 class="card-title">Image Analysis</h5>
+                    <p class="card-text">Analyze medical images to assist in diagnostic evaluation.</p>
+                    <a href="{{ url_for('index') }}" class="btn btn-primary">Start Analysis</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Disease Prediction Card -->
+        <div class="col-md-3 mb-4">
+            <div class="card bg-light p-4">
+                <div class="card-body">
+                    <div class="card-icon">
+                        <i class="fas fa-diagnoses"></i>
+                    </div>
+                    <h5 class="card-title">Disease Prediction</h5>
+                    <p class="card-text">Receive quick predictions for potential health conditions.</p>
+                    <a href="{{ url_for('disease_prediction') }}" class="btn btn-primary">Predict Now</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Medical Chatbot Card -->
+        <div class="col-md-3 mb-4">
+            <div class="card bg-light p-4">
+                <div class="card-body">
+                    <div class="card-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h5 class="card-title">Medical Chatbot</h5>
+                    <p class="card-text">Get answers to health-related questions from our chatbot.</p>
+                    <a href="{{ url_for('medical_chatbot') }}" class="btn btn-primary">Chat Now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FontAwesome for Icons -->
+<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<!-- Bootstrap JS (Optional for interactive elements) -->
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
 </body>
 </html>
+

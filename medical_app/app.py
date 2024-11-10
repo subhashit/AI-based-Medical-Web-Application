@@ -145,7 +145,7 @@ def register():
 @app.route('/dashboard')
 @login_required
 def dashboard():
-    return f'Welcome {current_user.username}! This is your dashboard.'
+    return render_template('dashboard.html')
 
 # Logout route
 @app.route('/logout')
@@ -153,6 +153,24 @@ def dashboard():
 def logout():
     logout_user()
     return redirect(url_for('home'))
+
+# **inside dashboard**
+# Route for User Profile
+@app.route('/user_profile')
+def user_profile():
+    return render_template('user_profile.html')
+
+# Route for Disease Prediction
+@app.route('/disease_prediction')
+def disease_prediction():
+    return render_template('disease_prediction.html')
+
+# Route for Medical Chatbot
+@app.route('/medical_chatbot')
+def medical_chatbot():
+    return render_template('medical_chatbot.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
