@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login-signup.css') }}">
-   
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='images/bg2.png') }}");
+        }
+    </style>
 </head>
+
 <body>
     <div class="login-container">
         <h2>Login</h2>
         <form method="POST">
-            <div class="form-group">
-                <label for="UserName" class="sr-only">User Name</label>
-                <input type="text" class="form-control" id="UserName" placeholder="UserName" required>
+            <div class="input-container">
+                <input placeholder="Username" class="input-field" type="text">
+                <label for="input-field" class="input-label">Username</label>
+                <span class="input-highlight"></span>
             </div>
-            <div class="form-group">
-                <label for="password" class="sr-only">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password" required>
+            <div class="input-container">
+                <input placeholder="Password" class="input-field" type="password">
+                <label for="input-field" class="input-label">Password</label>
+                <span class="input-highlight"></span>
             </div>
             <button type="submit" class="btn btn-primary mt-3">Login</button>
-            <a href="{{ url_for('register') }}" class="register-link">Don't have an account? Register</a>
+            <p class="register-link">Don't have a account?
+                <a href="{{ url_for('register') }}" class="register-link">Register</a>
+            </p>
         </form>
     </div>
 </body>
+
 </html>
-
-

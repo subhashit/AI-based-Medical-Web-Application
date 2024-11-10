@@ -11,6 +11,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/home.css') }}">
 
+    <style>
+        .hero-section {
+            background-image: url("{{ url_for('static', filename='images/bg1.jpeg') }}");
+        }
+    </style>
 </head>
 
 <body>
@@ -308,7 +313,7 @@
         </div>
     </section>
     
-    <hr style="border: 1px solid #33333381; opacity: 1;">
+    <hr class="hrStyle">
 
             <h3>Developed By:</h3>
             <p>Subhashit Thapa and Nikhil Kathait</p>

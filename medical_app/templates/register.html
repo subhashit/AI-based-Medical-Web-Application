@@ -6,23 +6,31 @@
     <title>Login</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/login-signup.css') }}">
+    <style>
+        body {
+            background-image: url("{{ url_for('static', filename='images/bg2.png') }}");
+        }
+    </style>
 </head>
 <body>
     <div class="login-container">
         <h2>Sign up</h2>
         <form method="POST">
-            <div class="form-group">
-                <label for="Name" class="sr-only">Name</label>
-                <input type="text" class="form-control" id="Name" placeholder="Name" required>
-            </div>
-            <div class="form-group">
-                <label for="UserName" class="sr-only">User Name</label>
-                <input type="text" class="form-control" id="UserName" placeholder="UserName" required>
-            </div>
-            <div class="form-group">
-                <label for="password" class="sr-only">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Password" required>
-            </div>
+            <div class="input-container">
+                <input placeholder="Name" class="input-field" type="text">
+                <label for="input-field" class="input-label">Name</label>
+                <span class="input-highlight"></span>
+              </div>
+              <div class="input-container">
+                <input placeholder="Username" class="input-field" type="text">
+                <label for="input-field" class="input-label">Username</label>
+                <span class="input-highlight"></span>
+              </div>
+              <div class="input-container">
+                <input placeholder="Password" class="input-field" type="password">
+                <label for="input-field" class="input-label">Password</label>
+                <span class="input-highlight"></span>
+              </div>
             <button type="submit" class="btn btn-primary mt-3">Register</button>
         </form>
     </div>

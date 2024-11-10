@@ -33,7 +33,6 @@ body {
 
 .hero-section {
     position: relative;
-    background-image: url("{{ url_for('static', filename='images/bg1.jpeg') }}");
     background-size: cover;
     background-position: center;
     height: 100vh;
@@ -220,4 +219,8 @@ footer p {
         font-size: 1rem;
         color: #333;
         font-weight: 500;
+    }
+
+    .hrStyle {
+        border: 1px solid #33333381;
     }

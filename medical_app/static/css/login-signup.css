@@ -4,12 +4,12 @@ body {
     justify-content: center;
     height: 100vh;
     margin: 0;
-    background-image: url("{{ url_for('static', filename='images/bg2.png') }}");
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     color: #333;
 }
+
 .login-container {
     max-width: 450px;
     padding: 2.5rem;
@@ -17,26 +17,80 @@ body {
     background-color: rgba(255, 255, 255, 0.9);
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
+
 .login-container h2 {
     font-size: 2rem;
     margin-bottom: 1.5rem;
     text-align: center;
     color: #007bff;
 }
-.form-control {
-    border-radius: 5px;
-}
+
 .btn-primary {
     width: 100%;
     border-radius: 5px;
 }
+
 .register-link {
-    display: block;
-    text-align: center;
+    color: #6B7280;
+    font-size: 0.875rem;
     margin-top: 1rem;
-    color: #007bff;
-    text-decoration: none;
+    line-height: 1.25rem;
+    text-align: center;
 }
-.register-link:hover {
+
+.register-link a {
     text-decoration: underline;
+    color: #007bff;
+}
+
+
+/* Input container */
+.input-container {
+    position: relative;
+    margin: 20px;
+}
+
+/* Input field */
+.input-field {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    outline: none;
+    background-color: transparent;
+}
+
+/* Input label */
+.input-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 16px;
+    color: rgba(204, 204, 204, 0);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+/* Input highlight */
+.input-highlight {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: #007bff;
+    transition: all 0.3s ease;
+}
+
+/* Input field:focus styles */
+.input-field:focus+.input-label {
+    top: -20px;
+    font-size: 12px;
+    color: #007bff;
+}
+
+.input-field:focus+.input-label+.input-highlight {
+    width: 100%;
 }
