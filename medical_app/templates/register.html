@@ -9,30 +9,78 @@
     <style>
         body {
             background-image: url("{{ url_for('static', filename='images/bg2.png') }}");
+            background-size: cover;
+            background-position: center;
+        }
+        .flash-messages {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            z-index: 1050;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2>Sign up</h2>
+        <h2>Sign Up</h2>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Registration Form -->
         <form method="POST">
+            <!-- Name Field -->
             <div class="input-container">
-                <input placeholder="Name" class="input-field" type="text">
-                <label for="input-field" class="input-label">Name</label>
+                <input placeholder="Name" class="input-field" type="text" name="name" required>
+                <label for="name" class="input-label">Name</label>
                 <span class="input-highlight"></span>
-              </div>
-              <div class="input-container">
-                <input placeholder="Username" class="input-field" type="text">
-                <label for="input-field" class="input-label">Username</label>
+            </div>
+            
+            <!-- Username Field -->
+            <div class="input-container">
+                <input placeholder="Username" class="input-field" type="text" name="username" required>
+                <label for="username" class="input-label">Username</label>
                 <span class="input-highlight"></span>
-              </div>
-              <div class="input-container">
-                <input placeholder="Password" class="input-field" type="password">
-                <label for="input-field" class="input-label">Password</label>
+            </div>
+            
+            <!-- Password Field -->
+            <div class="input-container">
+                <input placeholder="Password" class="input-field" type="password" name="password" required>
+                <label for="password" class="input-label">Password</label>
                 <span class="input-highlight"></span>
-              </div>
+            </div>
+            
+            <!-- Confirm Password Field -->
+            <div class="input-container">
+                <input placeholder="Confirm Password" class="input-field" type="password" name="confirm_password" required>
+                <label for="confirm_password" class="input-label">Confirm Password</label>
+                <span class="input-highlight"></span>
+            </div>
+
+            <!-- Submit Button -->
             <button type="submit" class="btn btn-primary mt-3">Register</button>
         </form>
     </div>
+
+    <!-- Bootstrap JS for Dismissible Alerts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

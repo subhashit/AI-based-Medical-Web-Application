@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,30 +9,64 @@
     <style>
         body {
             background-image: url("{{ url_for('static', filename='images/bg2.png') }}");
+            background-size: cover;
+            background-position: center;
+        }
+        .flash-messages {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 400px;
+            z-index: 1050;
         }
     </style>
 </head>
-
 <body>
     <div class="login-container">
         <h2>Login</h2>
+        
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="flash-messages">
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+        
+        <!-- Login Form -->
         <form method="POST">
+            <!-- Username Field -->
             <div class="input-container">
-                <input placeholder="Username" class="input-field" type="text">
-                <label for="input-field" class="input-label">Username</label>
+                <input placeholder="Username" class="input-field" type="text" name="username" required>
+                <label for="username" class="input-label">Username</label>
                 <span class="input-highlight"></span>
             </div>
+            
+            <!-- Password Field -->
             <div class="input-container">
-                <input placeholder="Password" class="input-field" type="password">
-                <label for="input-field" class="input-label">Password</label>
+                <input placeholder="Password" class="input-field" type="password" name="password" required>
+                <label for="password" class="input-label">Password</label>
                 <span class="input-highlight"></span>
             </div>
+
+            <!-- Submit Button -->
             <button type="submit" class="btn btn-primary mt-3">Login</button>
-            <p class="register-link">Don't have a account?
-                <a href="{{ url_for('register') }}" class="register-link">Register</a>
-            </p>
         </form>
     </div>
-</body>
 
+    <!-- Bootstrap JS for Dismissible Alerts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
 </html>
