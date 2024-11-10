@@ -67,10 +67,12 @@ def getResult(img):
     return result
 
 @app.route('/index', methods = ['GET'])
+@login_required
 def index():
     return render_template('index.html')
 
 @app.route('/predict', methods = ['GET', 'POST'])
+@login_required
 def upload():
     if request.method == 'POST':
         f = request.files['file']
@@ -143,9 +145,10 @@ def register():
 
 # Dashboard page route (protected by login_required)
 @app.route('/dashboard')
-@login_required
+@login_required  # Ensure the user is logged in
 def dashboard():
-    return render_template('dashboard.html')
+    return render_template('dashboard.html', user=current_user)
+
 
 # Logout route
 @app.route('/logout')
@@ -157,18 +160,22 @@ def logout():
 # **inside dashboard**
 # Route for User Profile
 @app.route('/user_profile')
+@login_required
 def user_profile():
     return render_template('user_profile.html')
 
 # Route for Disease Prediction
 @app.route('/disease_prediction')
+@login_required
 def disease_prediction():
     return render_template('disease_prediction.html')
 
 # Route for Medical Chatbot
 @app.route('/medical_chatbot')
+@login_required
 def medical_chatbot():
     return render_template('medical_chatbot.html')
+# ** dashboard end**
 
 
 

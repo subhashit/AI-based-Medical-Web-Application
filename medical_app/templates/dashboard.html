@@ -16,12 +16,34 @@
             margin: 0 auto;
             padding: 2rem;
         }
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
         .dashboard-title {
-            text-align: center;
             font-size: 2.5rem;
             font-weight: bold;
-            margin-bottom: 1.5rem;
             color: #343a40;
+        }
+        .logout-btn {
+            background-color: #dc3545;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .logout-btn:hover {
+            background-color: #c82333;
+        }
+        .welcome-message {
+            font-size: 1.25rem;
+            color: #6c757d;
+            font-weight: normal;
+            margin-bottom: 1rem;
         }
         .card {
             border: none;
@@ -62,7 +84,18 @@
 <body>
 
 <div class="dashboard-container">
-    <h1 class="dashboard-title">Medical Web App Dashboard</h1>
+    <div class="dashboard-header">
+        <h1 class="dashboard-title">Medical Web App Dashboard</h1>
+        <!-- Logout Button -->
+        <a href="{{ url_for('logout') }}" class="btn logout-btn">Logout</a>
+    </div>
+
+    <!-- Display User's Name and Welcome Message -->
+    <div class="welcome-message">
+        <p>Welcome, <strong>{{ user.username }}</strong>!</p> <!-- Use Jinja template variable for user's name -->
+        <p>We're glad to have you back! Here are some options to manage your health:</p>
+    </div>
+
     <div class="row">
         <!-- User Profile Card -->
         <div class="col-md-3 mb-4">
@@ -131,4 +164,3 @@
 
 </body>
 </html>
-
