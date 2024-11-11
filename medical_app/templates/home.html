@@ -41,86 +41,26 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="blog-card" data-toggle="modal" data-target="#blog1">
-                        <h3>5 Tips for a Healthier Life</h3>
-                        <p>Explore simple and effective tips to improve your lifestyle and well-being...</p>
+                    <div class="blog-card">
+                        <h3>Eat Well for Better Health</h3>
+                        <p>Eating a balanced diet is essential for health. Include a variety of fruits, vegetables, whole grains, and proteins. Stay hydrated, limit processed foods, and practice portion control to maintain a healthy weight.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="blog-card" data-toggle="modal" data-target="#blog2">
-                        <h3>Nutrition 101</h3>
-                        <p>Learn how to read nutrition labels and make healthier food choices...</p>
+                    <div class="blog-card">
+                        <h3>Stay Active for a Healthier Life</h3>
+                        <p>Regular physical activity boosts heart health, strengthens muscles, and improves mental wellbeing. Aim for at least 150 minutes of moderate exercise weekly to keep both body and mind strong and energized.</p>
                     </div>
                 </div>
                 <div class="col-md-4">
-                    <div class="blog-card" data-toggle="modal" data-target="#blog3">
-                        <h3>Exercise for a Better You</h3>
-                        <p>Discover the benefits of regular physical activity for your mind and body...</p>
+                    <div class="blog-card">
+                        <h3>Prioritize Your Mental Health</h3>
+                        <p>Mental health matters greatly. Practice mindfulness, prioritize quality sleep, build positive connections, and seek support if needed. Small steps can make a big difference in overall emotional health and resilience.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Blog Modals -->
-    <div class="modal fade" id="blog1" tabindex="-1" role="dialog" aria-labelledby="blog1Title" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="blog1Title">5 Tips for a Healthier Life</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <ul>
-                        <li><strong>Eat a balanced diet:</strong> Include a variety of fruits, vegetables, and lean
-                            proteins.</li>
-                        <li><strong>Stay active:</strong> Aim for at least 30 minutes of exercise most days of the week.
-                        </li>
-                        <li><strong>Drink water:</strong> Hydrate your body and avoid sugary drinks.</li>
-                        <li><strong>Get enough sleep:</strong> Prioritize sleep to help the body recover and stay
-                            energized.</li>
-                        <li><strong>Manage stress:</strong> Practice mindfulness or engage in relaxing activities.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="blog2" tabindex="-1" role="dialog" aria-labelledby="blog2Title" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="blog2Title">Nutrition 101</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Understanding nutrition labels is key to making informed food choices. Look for foods high in
-                        fiber and low in added sugars...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="blog3" tabindex="-1" role="dialog" aria-labelledby="blog3Title" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="blog3Title">Exercise for a Better You</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <p>Regular physical activity strengthens the heart, improves mood, and helps maintain a healthy
-                        weight...</p>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- about -->
     <section class="about-section">
@@ -231,88 +171,144 @@
             <div class="b-example-divider"></div>
 
       <!-- Technologies -->
+<!--    
       <section class="features-section">
+        <h2>Technologies We Use</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='images/html-icon.png') }}" alt="React Icon">
+                <p>HTML</p>
+            </div>
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='images/css-icon.png') }}" alt="SCSS Icon">
+                <p>CSS</p>
+            </div>
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='images/javascript-icon.png') }}" alt="No jQuery Icon">
+                <p>JavaScript</p>
+            </div>
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='images/bootstrap-icon.png') }}" alt="Bootstrap Icon">
+                <p>Bootstrap</p>
+            </div>
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='images/flask-icon.png') }}" alt="Responsive Icon">
+                <p>Flask</p>
+            </div>
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='images/sql-icon.png') }}" alt="Slick Slider Icon">
+                <p>SQLAlchemy</p>
+            </div>
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='images/opencv-icon.png') }}" alt="FontAwesome Icon">
+                <p>OpenCV</p>
+            </div>
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='images/tensorflow-icon.png') }}" alt="Google Font Icon">
+                <p>TensorFlow</p>
+            </div>
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='images/my_image.jpg') }}" alt="Clean Code Icon">
+                <p>Scikit-Learn</p>
+            </div>
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='images/my_image.jpg') }}" alt="Speed Optimized Icon">
+                <p>LangChain</p>
+            </div>
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='images/openai-icon.png') }}" alt="Documentation Icon">
+                <p>OpenAI</p>
+            </div>
+            <div class="feature-card">
+                <img src="{{ url_for('static', filename='images/my_image.jpg') }}" alt="Support Icon">
+                <p>Gorq</p>
+            </div>
+        </div>
+    </section>
+-->
+
+    <section class="features-section">
         <div class="container">
             <h2>Technologies We Use</h2>
             
             <div class="row">
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="path/to/react-icon.png" alt="React Icon" class="feature-icon">
+                        <img src="static\images\html-icon.png" alt="HTML Icon" alt="HTML Icon" class="feature-icon">
                         <p class="feature-title">HTML</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="path/to/scss-icon.png" alt="SCSS Icon" class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/css-icon.png') }}" alt="CSS Icon" class="feature-icon">
                         <p class="feature-title">CSS</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="path/to/no-jquery-icon.png" alt="No jQuery Icon" class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/javascript-icon.png') }}" alt="JavaScript Icon" class="feature-icon">
                         <p class="feature-title">JavaScript</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="path/to/bootstrap-icon.png" alt="Bootstrap Icon" class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/bootstrap-icon.png') }}" alt="Bootstrap Icon" class="feature-icon">
                         <p class="feature-title">Bootstrap</p>
                     </div>
                 </div>
-                <!-- Additional features -->
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="path/to/fully-responsive-icon.png" alt="Fully Responsive Icon" class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/flask-icon.png') }}" alt="Flask Icon" class="feature-icon">
                         <p class="feature-title">Flask</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="path/to/slick-slider-icon.png" alt="Slick Slider Icon" class="feature-icon">
-                        <p class="feature-title">MySQL/ PostgreSQL</p>
+                        <img src="{{ url_for('static', filename='images/sql-icon.png') }}" alt="SQLAlchemy Icon" class="feature-icon">
+                        <p class="feature-title">SQLAlchemy</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="path/to/fontawesome-icon.png" alt="FontAwesome Icon" class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/opencv-icon.png') }}" alt="OpenCV Icon" class="feature-icon">
                         <p class="feature-title">OpenCV</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="path/to/google-font-icon.png" alt="Google Font Icon" class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/tensorflow-icon.png') }}" alt="TensorFlow Icon" class="feature-icon">
                         <p class="feature-title">TensorFlow</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="path/to/google-font-icon.png" alt="Google Font Icon" class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/my_image.jpg') }}" alt="Scikit-Learn Icon" class="feature-icon">
                         <p class="feature-title">Scikit-Learn</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="path/to/google-font-icon.png" alt="Google Font Icon" class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/my_image.jpg') }}" alt="LangChain Icon" class="feature-icon">
                         <p class="feature-title">LangChain</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="path/to/google-font-icon.png" alt="Google Font Icon" class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/openai-icon.png') }}" alt="OpenAI Icon" class="feature-icon">
                         <p class="feature-title">OpenAI</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="path/to/google-font-icon.png" alt="Google Font Icon" class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/opencv-icon.png') }}" alt="Gorq Icon" class="feature-icon">
                         <p class="feature-title">Gorq</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <hr class="hrStyle">
 
             <h3>Developed By:</h3>
