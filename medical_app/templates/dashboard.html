@@ -7,104 +7,45 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/dashboard.css') }}">
     <style>
-        body {
-            background-color: white;
-            font-family: Arial, sans-serif;
-        }
-        img {
-            object-fit: contain;
-        }
-        .dashboard-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        .dashboard-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-        .dashboard-title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            color: #343a40;
-        }
-        .logout-btn {
-            background-color: #dc3545;
-            color: white;
-            padding: 10px 20px;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
-        }
-        .logout-btn:hover {
-            background-color: #c82333;
-        }
-        .welcome-message {
-            font-size: 1.25rem;
-            color: #6c757d;
-            font-weight: normal;
-            margin-bottom: 1rem;
-        }
-        .card {
-            border: none;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        .card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        .card-icon {
-            font-size: 3rem;
-            color: #007bff;
-            margin-bottom: 1rem;
-        }
-        .card-title {
-            font-size: 1.25rem;
-            font-weight: bold;
-        }
-        .card-text {
-            color: #6c757d;
-        }
-        .row {
-            display: flex;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-        .col-md-3 {
-            display: flex;
-            justify-content: center;
-        }
-        .card-body {
-            text-align: center;
-        }
+        
     </style>
 </head>
 <body>
     <!-- Header -->
-     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-        <div class="col-md-3 mb-2 mb-md-0">
+     <header class="dashboard-container">
+        <div class="dashboard-header mb-2 mb-md-0">
             <img src="{{ url_for('static', filename='images/logo.png') }}" alt="logo" height="70px" width="70px">
+            <a href="{{ url_for('logout') }}" class="btn logout-btn">Logout</a>
         </div>
      </header>
 
+     <!-- hero -->
+     <section class="pt-4 pt-md-11">
+        <div class="container">
+          <div class="row align-items-center">
+            <div class="col-12 col-md-5 col-lg-6 order-md-2">
+  
+              <!-- Image -->
+              <img src="{{ url_for('static', filename='images/dashboard-img.png') }}" class="img-fluid mw-md-150 mw-lg-130 mb-6 mb-md-0" alt="..." data-aos="fade-up" data-aos-delay="100">
+  
+            </div>
+            <div class="col-12 col-md-7 col-lg-6 order-md-1" data-aos="fade-up">
+  
+              <!-- Heading -->
+              <h1 class="display-3 text-center text-md-start">
+                Welcome, <span class="text-primary">{{ user.username }}</span>! <br>
+              </h1>
+  
+              <!-- Text -->
+              <p class="lead text-center text-md-start text-body-secondary mb-6 mb-lg-8">
+                We're glad to have you back! Here are some options to manage your health.
+              </p>
+            </div>
+          </div> <!-- / .row -->
+        </div> <!-- / .container -->
+      </section>
+
 <div class="dashboard-container">
-    <div class="dashboard-header">
-        <h1 class="dashboard-title">Medical Web App Dashboard</h1>
-        <!-- Logout Button -->
-        <a href="{{ url_for('logout') }}" class="btn logout-btn">Logout</a>
-    </div>
-
-    <!-- Display User's Name and Welcome Message -->
-    <div class="welcome-message">
-        <p>Welcome, <strong>{{ user.username }}</strong>!</p> <!-- Use Jinja template variable for user's name -->
-        <p>We're glad to have you back! Here are some options to manage your health:</p>
-    </div>
-
     <div class="row">
         <!-- User Profile Card -->
         <div class="col-md-3 mb-4">
