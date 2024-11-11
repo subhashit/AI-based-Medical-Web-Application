@@ -32,7 +32,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
     # One-to-many relationship with MedicalRecord
-    medical_records = db.relationship('MedicalRecord', backref='user', lazy=True)
+    medical_records = db.relationship('MedicalRecord', backref='owner', lazy=True)
     # Set encrypted password
     def set_password(self, password):
         self.password = bcrypt.generate_password_hash(password).decode('utf-8')
@@ -42,21 +42,20 @@ class User(db.Model, UserMixin):
     
 class MedicalRecord(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Foreign Key
-    blood_pressure = db.Column(db.String(100), nullable=False)
-    pulse = db.Column(db.Integer, nullable=False)
-    glucose = db.Column(db.Integer, nullable=False)
-    cholesterol_levels = db.Column(db.Integer, nullable=False)
-    heart_rate = db.Column(db.Integer, nullable=False)
-    oxygen_saturation = db.Column(db.Integer, nullable=False)
-    respiratory_rate = db.Column(db.Integer, nullable=False)
-    liver_function_test = db.Column(db.String(100), nullable=False)
-    kidney_function_test = db.Column(db.String(100), nullable=False)
-    blood_report = db.Column(db.String(100), nullable=False)
     record_date = db.Column(db.Date, nullable=False)
+    blood_pressure = db.Column(db.String(100))
+    pulse = db.Column(db.Integer)
+    glucose = db.Column(db.Integer)
+    cholesterol_levels = db.Column(db.Integer)
+    heart_rate = db.Column(db.Integer)
+    oxygen_saturation = db.Column(db.Integer)
+    respiratory_rate = db.Column(db.Integer)
+    liver_function_test = db.Column(db.String(100))
+    kidney_function_test = db.Column(db.String(100))
+    blood_report = db.Column(db.String(100))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-    def __repr__(self):
-        return f"<MedicalRecord {self.record_date}>"
+    user = db.relationship('User', backref=db.backref('records', lazy=True))
     
 # Load user for login
 @login_manager.user_loader
@@ -227,7 +226,18 @@ def user_profile():
     # Query all medical records for the current logged-in user
     records = MedicalRecord.query.filter_by(user_id=current_user.id).all()
     return render_template('user_profile.html', records=records)
-
+# Route to handle record deletion
+@app.route('/delete_record/<int:record_id>', methods=['POST'])
+@login_required
+def delete_record(record_id):
+    record = MedicalRecord.query.get(record_id)
+    if record and record.user_id == current_user.id:
+        db.session.delete(record)
+        db.session.commit()
+        flash('Record deleted successfully!', 'success')
+    else:
+        flash('Record not found or unauthorized action!', 'danger')
+    return redirect(url_for('user_profile'))
 
 
 # Route for Disease Prediction
