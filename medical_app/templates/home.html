@@ -22,7 +22,10 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a href="#" class="navbar-brand">MedWise AI</a>
+        <a href="#" class="navbar-brand">
+            <img class="bi me-2" width="40" height="32" src="{{ url_for('static', filename='images/home-logo.png') }}" alt="logo">
+            <span>MedWise Ai</span>
+        </a>
         <div class="ml-auto">
             <a href="{{ url_for('login') }}">Login</a>
         </div>
@@ -283,13 +286,13 @@
                 </div>
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="{{ url_for('static', filename='images/my_image.jpg') }}" alt="Scikit-Learn Icon" class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/scikit-learn-logo.jpg') }}" alt="Scikit-Learn Icon" class="feature-icon">
                         <p class="feature-title">Scikit-Learn</p>
                     </div>
                 </div>
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="{{ url_for('static', filename='images/my_image.jpg') }}" alt="LangChain Icon" class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/langchain-logo.jpg') }}" alt="LangChain Icon" class="feature-icon">
                         <p class="feature-title">LangChain</p>
                     </div>
                 </div>
@@ -301,7 +304,7 @@
                 </div>
                 <div class="col-md-3 col-sm-6 mb-4">
                     <div class="card feature-card text-center p-3">
-                        <img src="{{ url_for('static', filename='images/opencv-icon.png') }}" alt="Gorq Icon" class="feature-icon">
+                        <img src="{{ url_for('static', filename='images/gorq-icon.jpg') }}" alt="Gorq Icon" class="feature-icon">
                         <p class="feature-title">Gorq</p>
                     </div>
                 </div>
