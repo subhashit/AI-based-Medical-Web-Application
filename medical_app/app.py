@@ -3,6 +3,7 @@ from flask import Flask, request, render_template, flash, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from datetime import datetime
 
 
 import os
@@ -30,12 +31,33 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(120), nullable=False)
     username = db.Column(db.String(120), unique=True, nullable=False)
     password = db.Column(db.String(128), nullable=False)
+    # One-to-many relationship with MedicalRecord
+    medical_records = db.relationship('MedicalRecord', backref='user', lazy=True)
     # Set encrypted password
     def set_password(self, password):
         self.password = bcrypt.generate_password_hash(password).decode('utf-8')
     # Check if the entered password is correct
     def check_password(self, password):
         return bcrypt.check_password_hash(self.password, password)
+    
+class MedicalRecord(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)  # Foreign Key
+    blood_pressure = db.Column(db.String(100), nullable=False)
+    pulse = db.Column(db.Integer, nullable=False)
+    glucose = db.Column(db.Integer, nullable=False)
+    cholesterol_levels = db.Column(db.Integer, nullable=False)
+    heart_rate = db.Column(db.Integer, nullable=False)
+    oxygen_saturation = db.Column(db.Integer, nullable=False)
+    respiratory_rate = db.Column(db.Integer, nullable=False)
+    liver_function_test = db.Column(db.String(100), nullable=False)
+    kidney_function_test = db.Column(db.String(100), nullable=False)
+    blood_report = db.Column(db.String(100), nullable=False)
+    record_date = db.Column(db.Date, nullable=False)
+
+    def __repr__(self):
+        return f"<MedicalRecord {self.record_date}>"
+    
 # Load user for login
 @login_manager.user_loader
 def load_user(user_id):
@@ -46,7 +68,7 @@ with app.app_context():
 # **database part end**
 
 # ***image analysis part start***
-model = load_model(r'BrainTumor.h5')
+model = load_model('C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/BrainTumor.h5')
 print('Model loaded. Check http://127.0.0.1:5000/')
 
 def get_className(classNo):
@@ -159,10 +181,54 @@ def logout():
 
 # **inside dashboard**
 # Route for User Profile
-@app.route('/user_profile')
+
+@app.route('/user_profile', methods=['GET', 'POST'])
 @login_required
 def user_profile():
-    return render_template('user_profile.html')
+    if request.method == 'POST':
+        # Get form data from POST request
+        blood_pressure = request.form['blood_pressure']
+        pulse = request.form['pulse']
+        glucose = request.form['glucose']
+        cholesterol_levels = request.form['cholesterol_levels']
+        heart_rate = request.form['heart_rate']
+        oxygen_saturation = request.form['oxygen_saturation']
+        respiratory_rate = request.form['respiratory_rate']
+        liver_function_test = request.form['liver_function_test']
+        kidney_function_test = request.form['kidney_function_test']
+        blood_report = request.form['blood_report']
+        record_date = request.form['record_date']
+
+        # Parse the record_date string to a datetime object
+        record_date = datetime.strptime(record_date, '%Y-%m-%d')
+
+        # Create a new medical record
+        new_record = MedicalRecord(
+            user_id=current_user.id,  # Reference the current logged-in user
+            blood_pressure=blood_pressure,
+            pulse=pulse,
+            glucose=glucose,
+            cholesterol_levels=cholesterol_levels,
+            heart_rate=heart_rate,
+            oxygen_saturation=oxygen_saturation,
+            respiratory_rate=respiratory_rate,
+            liver_function_test=liver_function_test,
+            kidney_function_test=kidney_function_test,
+            blood_report=blood_report,
+            record_date=record_date
+        )
+
+        # Add and commit the new record
+        db.session.add(new_record)
+        db.session.commit()
+
+        return redirect(url_for('user_profile'))
+
+    # Query all medical records for the current logged-in user
+    records = MedicalRecord.query.filter_by(user_id=current_user.id).all()
+    return render_template('user_profile.html', records=records)
+
+
 
 # Route for Disease Prediction
 @app.route('/disease_prediction')
