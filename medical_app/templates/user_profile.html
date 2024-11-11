@@ -119,7 +119,6 @@
         .delete-btn:hover {
             color: #c82333;
         }
-
         /* Style for the Hamburger Icon and Dropdown Menu */
         .hamburger-menu {
             display: block;
@@ -143,7 +142,9 @@
             padding: 10px;
             width: 200px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+            z-index: 2000; 
         }
+
 
         .user-menu a {
             color: white;
@@ -169,14 +170,6 @@
     <div class="user-menu" id="userMenu">
         <a href="{{ url_for('dashboard') }}">Dashboard</a>
         <a href="{{ url_for('logout') }}">Logout</a>
-    </div>
-
-    <div class="d-flex justify-content-between align-items-center mb-4">
-        <h2>User Profile</h2>
-    </div>
-
-    <div class="d-flex justify-content-between mb-4">
-        <h4>Welcome, {{ current_user.username }}!</h4>
     </div>
 
     <div>
@@ -256,42 +249,41 @@
             </div>
             <div class="form-group">
                 <label for="liver_function_test">Liver Function Test</label>
-                <input type="text" class="form-control" id="liver_function_test" name="liver_function_test">
+                <input type="text" class="form-control" id="liver_function_test" name="liver_function_test" >
             </div>
             <div class="form-group">
                 <label for="kidney_function_test">Kidney Function Test</label>
-                <input type="text" class="form-control" id="kidney_function_test" name="kidney_function_test">
+                <input type="text" class="form-control" id="kidney_function_test" name="kidney_function_test" >
             </div>
             <div class="form-group">
                 <label for="blood_report">Blood Report</label>
-                <input type="file" class="form-control" id="blood_report" name="blood_report">
+                <input type="text" class="form-control" id="blood_report" name="blood_report" >
             </div>
-            <button type="submit" class="btn btn-primary">Save Record</button>
+            <div class="form-group">
+                <label for="record_date">Record Date</label>
+                <input type="date" class="form-control" id="record_date" name="record_date" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Record</button>
         </form>
     </div>
 
-    <button class="btn-add-record" onclick="toggleForm()">Add New Record</button>
+    <div class="d-flex justify-content-center mt-5">
+        <button class="btn-add-record" onclick="toggleForm()">Add New Record</button>
+    </div>
 </div>
 
-<!-- Include Bootstrap and Font Awesome JS -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 <script>
-    // Toggle Record Details
-    function toggleRecordDetails(recordId) {
-        const details = document.getElementById('record-' + recordId);
-        details.style.display = (details.style.display === 'none' || details.style.display === '') ? 'block' : 'none';
-    }
-
-    // Toggle Add Record Form
+    // Toggle the visibility of the Add Record form
     function toggleForm() {
-        const form = document.getElementById('addRecordForm');
-        form.style.display = form.style.display === 'none' || form.style.display === '' ? 'block' : 'none';
+        const form = document.getElementById("addRecordForm");
+        form.style.display = form.style.display === "none" ? "block" : "none";
     }
 
-    // Toggle the User Menu
+    // Toggle the visibility of record details
+    function toggleRecordDetails(recordId) {
+        const details = document.getElementById("record-" + recordId);
+        details.style.display = details.style.display === "none" ? "block" : "none";
+    }
     function toggleMenu() {
         const menu = document.getElementById('userMenu');
         menu.style.display = menu.style.display === 'none' || menu.style.display === '' ? 'block' : 'none';
@@ -300,5 +292,4 @@
 
 </body>
 </html>
-
 
