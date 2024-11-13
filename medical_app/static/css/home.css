@@ -2,7 +2,7 @@ body {
     font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f0f4f8;
+    background-color: white;
     color: #333;
     line-height: 1.6;
     display: flex;
@@ -159,31 +159,17 @@ body {
     color: #5D6D7E;
 }
 
-footer {
-    background-color: #34495e;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-    margin-top: auto;
-}
-
-footer p {
-    color: white;
-    margin: 0;
-}
-
-/* Animation */
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
 /* About Section */
+
+.about-div h1{
+    color: #1A5276;
+}
+
+.about-div p {
+    color: #555555;
+}
+
+/* Services section */
 
 #about-heading {
     background-color: #34495e;
@@ -283,4 +269,28 @@ footer p {
 
 .hrStyle {
     border: 1px solid #33333381;
+}
+
+footer {
+    background-color: #34495e;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: auto;
+}
+
+footer p {
+    color: white;
+    margin: 0;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
 }
