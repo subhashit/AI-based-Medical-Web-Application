@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disease Prediction</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F9F9F9;
+            color: #333;
+            line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 50px auto;
+            background: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.8rem;
+            color: #11698e;
+            margin-bottom: 20px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #4C8DAE;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .navbar a {
+            color: #FFFFFF;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+
+        .navbar a:hover {
+            color: #F39C12;
+        }
+
+        /* Button Group */
+        .btn-group {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .btn-group button {
+            background-color: #1976d2;
+            color: #fff;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            margin: 0 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-group button:hover {
+            background-color: #004085;
+        }
+
+        /* Form Styling */
+        form {
+            display: none;
+        }
+
+        form.active {
+            display: block;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 15px 0 5px;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        button {
+            background-color: #e74c3c;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: background-color 0.4s ease;
+        }
+
+        button:hover {
+            background-color: #c0392b;
+        }
+
+        .error, .result {
+            text-align: center;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .error {
+            color: #e74c3c;
+        }
+
+        .result {
+            color: #2ecc71;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #34495e;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            margin-top: auto;
+        }
+
+        footer p {
+            margin: 0;
+        }
+
+        /* Animation */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
+
+    <div class="container">
+        <h1>Disease Prediction</h1>
+
+        <div class="btn-group">
+            <button type="button" onclick="showForm('diabetes')">Predict Diabetes</button>
+            <button type="button" onclick="showForm('liver')">Predict Liver Disease</button>
+            <button type="button" onclick="showForm('heart')">Predict Heart Disease</button>
+        </div>
+
+        <form id="diabetes-form" method="POST" action="/disease_prediction">
+            <input type="hidden" name="model" value="diabetes">
+            <label for="Pregnancies">Pregnancies</label>
+            <input type="number" step="any" name="Pregnancies" required>
+            <label for="Glucose">Glucose</label>
+            <input type="number" step="any" name="Glucose" required>
+            <label for="BloodPressure">Blood Pressure</label>
+            <input type="number" step="any" name="BloodPressure" required>
+            <label for="SkinThickness">Skin Thickness</label>
+            <input type="number" step="any" name="SkinThickness" required>
+            <label for="Insulin">Insulin</label>
+            <input type="number" step="any" name="Insulin" required>
+            <label for="BMI">BMI</label>
+            <input type="number" step="any" name="BMI" required>
+            <label for="DiabetesPedigreeFunction">Diabetes Pedigree Function</label>
+            <input type="number" step="any" name="DiabetesPedigreeFunction" required>
+            <label for="Age">Age</label>
+            <input type="number" step="any" name="Age" required>
+            <button type="submit">Submit</button>
+        </form>
+
+        <form id="liver-form" method="POST" action="/disease_prediction">
+            <input type="hidden" name="model" value="liver">
+            <label for="Age">Age</label>
+            <input type="number" step="any" name="Age" required>
+            <label for="Gender">Gender (Male/Female)</label>
+            <input type="text" name="Gender" required>
+            <label for="TB">Total Bilirubin (TB)</label>
+            <input type="number" step="any" name="TB" required>
+            <label for="DB">Direct Bilirubin (DB)</label>
+            <input type="number" step="any" name="DB" required>
+            <label for="Alkphos">Alkaline Phosphatase (Alkphos)</label>
+            <input type="number" step="any" name="Alkphos" required>
+            <label for="Sgpt">Sgpt</label>
+            <input type="number" step="any" name="Sgpt" required>
+            <label for="Sgot">Sgot</label>
+            <input type="number" step="any" name="Sgot" required>
+            <label for="TP">Total Protein (TP)</label>
+            <input type="number" step="any" name="TP" required>
+            <label for="ALB">Albumin (ALB)</label>
+            <input type="number" step="any" name="ALB" required>
+            <label for="A/G Ratio">A/G Ratio</label>
+            <input type="number" step="any" name="A/G Ratio" required>
+            <button type="submit">Submit</button>
+        </form>
+
+        <form id="heart-form" method="POST" action="/disease_prediction">
+            <input type="hidden" name="model" value="heart">
+            <label for="Age">Age</label>
+            <input type="number" step="any" name="Age" required>
+            <label for="Sex">Sex (Male/Female)</label>
+            <input type="text" name="Sex" required>
+            <label for="Chest pain type">Chest Pain Type</label>
+            <input type="number" step="any" name="Chest pain type" required>
+            <label for="BP">Blood Pressure</label>
+            <input type="number" step="any" name="BP" required>
+            <label for="Cholesterol">Cholesterol</label>
+            <input type="number" step="any" name="Cholesterol" required>
+            <label for="FBS over 120">FBS over 120</label>
+            <input type="number" step="any" name="FBS over 120" required>
+            <label for="EKG results">EKG Results</label>
+            <input type="number" step="any" name="EKG results" required>
+            <label for="Max HR">Max Heart Rate</label>
+            <input type="number" step="any" name="Max HR" required>
+            <label for="Exercise angina">Exercise Angina (Yes/No)</label>
+            <input type="text" name="Exercise angina" required>
+            <label for="ST depression">ST Depression</label>
+            <input type="number" step="any" name="ST depression" required>
+            <label for="Slope of ST">Slope of ST</label>
+            <input type="number" step="any" name="Slope of ST" required>
+            <label for="Number of vessels fluro">Number of Vessels Fluro</label>
+            <input type="number" step="any" name="Number of vessels fluro" required>
+            <label for="Thallium">Thallium</label>
+            <input type="number" step="any" name="Thallium" required>
+            <button type="submit">Submit</button>
+        </form>
+        {% if error %}
+        <p class="error">{{ error }}</p>
+        {% endif %}
+
+        {% if result %}
+        <p class="result">{{ result }}</p>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Disease Prediction App. All Rights Reserved.</p>
+    </footer>
+
+    <script>
+        function showForm(formId) {
+            document.querySelectorAll("form").forEach(form => form.classList.remove("active"));
+            document.getElementById(formId + "-form").classList.add("active");
+        }
+    </script>
+</body>
+</html>

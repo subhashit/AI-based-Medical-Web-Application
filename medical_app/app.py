@@ -16,7 +16,7 @@ from keras.models import load_model
 from werkzeug.utils import secure_filename
 
 import pickle
-
+import joblib
 # Initialize the Flask app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'medic'
@@ -242,12 +242,6 @@ def delete_record(record_id):
     return redirect(url_for('user_profile'))
 
 
-# Route for Disease Prediction
-@app.route('/disease_prediction')
-@login_required
-def disease_prediction():
-    return render_template('disease_prediction.html')
-
 # Route for Medical Chatbot
 @app.route('/medical_chatbot')
 @login_required
@@ -256,16 +250,27 @@ def medical_chatbot():
 # ** dashboard end**
 
 
+# Load the models
 models = {
-    "diabetes": pickle.load(open("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/models/diabetes.pkl", "rb")),
-    "liver": pickle.load(open("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/models/liver.pkl", "rb")),
-    "heart": pickle.load(open("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/models/heart.pkl", "rb"))
+    "diabetes": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/diabetes.pkl"),
+    "liver": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/liver.pkl"),
+    "heart": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/heart.pkl")
 }
 
-@app.route("/", methods=["GET", "POST"])
-def index():
+# Load the models
+models = {
+    "diabetes": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/diabetes.pkl"),
+    "liver": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/liver.pkl"),
+    "heart": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/heart.pkl")
+}
+
+@app.route("/disease_prediction", methods=["GET", "POST"])
+@login_required
+def disease_prediction():
     result = None
+    message = None
     error = None
+
     if request.method == "POST":
         # Get the selected model
         selected_model = request.form.get("model")
@@ -292,24 +297,34 @@ def index():
                         "ST depression", "Slope of ST", "Number of vessels fluro", "Thallium"
                     ]
 
-                # Extract the form data
-                input_data = [float(request.form.get(field, 0)) for field in fields]
-
-                # Convert gender and categorical values to numeric if necessary
-                if selected_model == "liver":
-                    input_data[1] = 1 if input_data[1] == "Male" else 0  # Gender: Male = 1, Female = 0
-                elif selected_model == "heart":
-                    input_data[1] = 1 if input_data[1] == "Male" else 0  # Sex: Male = 1, Female = 0
-                    input_data[8] = 1 if input_data[8] == "Yes" else 0  # Exercise angina
+                # Extract and process form data
+                input_data = []
+                for field in fields:
+                    value = request.form.get(field, "").strip()
+                    if field in ["Gender", "Sex", "Exercise angina"]:  # Handle categorical fields
+                        if field in ["Gender", "Sex"]:
+                            value = 1 if value.lower() == "male" else 0
+                        elif field == "Exercise angina":
+                            value = 1 if value.lower() == "yes" else 0
+                    input_data.append(float(value))
 
                 # Make prediction
                 model = models[selected_model]
-                prediction = model.predict([input_data])
-                result = f"Prediction for {selected_model}: {prediction[0]}"
+                prediction = model.predict([input_data])[0]  # Get prediction result (0 or 1)
+
+                # Set the message based on the prediction
+                if prediction == 0:
+                    result = f"You are not suffering from {selected_model.capitalize()}."
+                elif prediction == 1:
+                    result = f"You are suffering from {selected_model.capitalize()}."
             except Exception as e:
                 error = f"Error in processing input: {e}"
 
-    return render_template("disease_prediction.html", result=result, error=error)
+    return render_template(
+        "disease_prediction.html",
+        result=result,
+        error=error
+    )
 
 
 if __name__ == '__main__':
