@@ -15,14 +15,18 @@ from PIL import Image
 from keras.models import load_model
 from werkzeug.utils import secure_filename
 
-import pickle
 import joblib
+
+#////////////////////////////////////////////////////////////////////////////
 # Initialize the Flask app
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'medic'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
+#//////////////////////////////////////////////////////////////////////////
 
-# **database part start**
+
+#////////////////////////////////////////////////////////////////////////////////////////start
+#DATABASE
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
@@ -58,7 +62,6 @@ class MedicalRecord(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     user = db.relationship('User', backref=db.backref('records', lazy=True))
-    
 # Load user for login
 @login_manager.user_loader
 def load_user(user_id):
@@ -66,8 +69,13 @@ def load_user(user_id):
 # Create the database
 with app.app_context():
     db.create_all()
-# **database part end**
+#/////////////////////////////////////////////////////////////////////////////////end
 
+
+
+
+
+#///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////start
 # ***image analysis part start***
 model = load_model('C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/BrainTumor.h5')
 print('Model loaded. Check http://127.0.0.1:5000/')
@@ -113,13 +121,19 @@ def upload():
         return result
     
     return render_template('index.html')
-# ***image analysis part end ***
+#///////////////////////////////////////////////////////////////////////////////////////////end
+
+
+
 
 # Home Route
 @app.route('/')
 def home():
     return render_template('home.html')
 
+
+
+#/////////////////////////////////////////////////////////////////////////////////start
 # Login page route
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -134,6 +148,17 @@ def login():
             flash('Login Failed. Check username and/or password.', 'danger')
     return render_template('login.html')
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('home'))
+#//////////////////////////////////////////////////////////////////////////////end
+
+
+
+
+#//////////////////////////////////////////////////////////////////////////////////start
 # Registration page route
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -165,24 +190,20 @@ def register():
         return redirect(url_for('login'))
 
     return render_template('register.html')
+#/////////////////////////////////////////////////////////////////////////////////////////end
 
+
+
+
+
+#////////////////////////////////////////////////////////////////////////////////////////start
 # Dashboard page route (protected by login_required)
 @app.route('/dashboard')
 @login_required  # Ensure the user is logged in
 def dashboard():
     return render_template('dashboard.html', user=current_user)
 
-
-# Logout route
-@app.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('home'))
-
-# **inside dashboard**
 # Route for User Profile
-
 @app.route('/user_profile', methods=['GET', 'POST'])
 @login_required
 def user_profile():
@@ -240,30 +261,22 @@ def delete_record(record_id):
     else:
         flash('Record not found or unauthorized action!', 'danger')
     return redirect(url_for('user_profile'))
+#/////////////////////////////////////////////////////////////////////////////////////////end
 
 
-# Route for Medical Chatbot
-@app.route('/medical_chatbot')
-@login_required
-def medical_chatbot():
-    return render_template('medical_chatbot.html')
-# ** dashboard end**
 
 
-# Load the models
+
+
+
+
+#////////////////////////////////////////////////////////////////////////////////////////////////////////////start
+#  Disease_prediction
 models = {
     "diabetes": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/diabetes.pkl"),
     "liver": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/liver.pkl"),
     "heart": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/heart.pkl")
 }
-
-# Load the models
-models = {
-    "diabetes": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/diabetes.pkl"),
-    "liver": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/liver.pkl"),
-    "heart": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/heart.pkl")
-}
-
 @app.route("/disease_prediction", methods=["GET", "POST"])
 @login_required
 def disease_prediction():
@@ -325,7 +338,16 @@ def disease_prediction():
         result=result,
         error=error
     )
+#/////////////////////////////////////////////////////////////////////////////////////////////////end
 
+
+
+# Route for Medical Chatbot
+@app.route('/medical_chatbot')
+@login_required
+def medical_chatbot():
+    return render_template('medical_chatbot.html')
+# ** dashboard end**
 
 if __name__ == '__main__':
     app.run(debug=True)
