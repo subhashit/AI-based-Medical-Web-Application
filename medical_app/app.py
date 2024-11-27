@@ -67,7 +67,7 @@ with app.app_context():
 # **database part end**
 
 # ***image analysis part start***
-model = load_model('BrainTumor.h5')
+model = load_model('C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/BrainTumor.h5')
 print('Model loaded. Check http://127.0.0.1:5000/')
 
 def get_className(classNo):
