@@ -77,7 +77,7 @@ with app.app_context():
 
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////start
 # ***image analysis part start***
-model = load_model('C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/BrainTumor.h5')
+model = load_model('BrainTumor.h5')
 print('Model loaded. Check http://127.0.0.1:5000/')
 
 def get_className(classNo):
@@ -273,9 +273,9 @@ def delete_record(record_id):
 #////////////////////////////////////////////////////////////////////////////////////////////////////////////start
 #  Disease_prediction
 models = {
-    "diabetes": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/diabetes.pkl"),
-    "liver": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/liver.pkl"),
-    "heart": joblib.load("C:/Users/subha/OneDrive/Desktop/project/AI-based-Medical-Web-Application/medical_app/models/heart.pkl")
+    "diabetes": joblib.load("models/diabetes.pkl"),
+    "liver": joblib.load("models/liver.pkl"),
+    "heart": joblib.load("models/heart.pkl")
 }
 @app.route("/disease_prediction", methods=["GET", "POST"])
 @login_required
