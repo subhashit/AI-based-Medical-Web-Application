@@ -77,6 +77,7 @@ with app.app_context():
 
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////start
 # ***image analysis part start***
+#***Brain Tumor Model***
 model = load_model('BrainTumor.h5')
 print('Model loaded. Check http://127.0.0.1:5000/')
 
