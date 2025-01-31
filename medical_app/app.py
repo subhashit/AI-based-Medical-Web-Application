@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, flash, redirect, url_for
+from flask import Flask, request, render_template, flash, redirect, url_for, jsonify
 
 from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
@@ -14,9 +14,13 @@ from tensorflow.keras.preprocessing import image
 from PIL import Image
 from keras.models import load_model
 from werkzeug.utils import secure_filename
-
 import joblib
 
+from dotenv import load_dotenv
+
+import textwrap
+import google.generativeai as genai
+genai.configure(api_key="AIzaSyBbsB477wiSmnx6h1ZVde4dkJSEj50W960")  
 #////////////////////////////////////////////////////////////////////////////
 # Initialize the Flask app
 app = Flask(__name__)
@@ -78,7 +82,7 @@ with app.app_context():
 #///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////start
 # ***image analysis part start***
 #***Brain Tumor Model***
-model = load_model('BrainTumor.h5')
+model = load_model('BrainTumor.h5', compile=False)
 print('Model loaded. Check http://127.0.0.1:5000/')
 
 def get_className(classNo):
@@ -340,15 +344,56 @@ def disease_prediction():
         error=error
     )
 #/////////////////////////////////////////////////////////////////////////////////////////////////end
+import pandas as pd
+import json
+# Set up your API key for Google Generative AI
+genai.configure(api_key="AIzaSyBbsB477wiSmnx6h1ZVde4dkJSEj50W960")
+@app.route('/chat', methods=['POST'])
+def chat():
+
+    json_file_path = 'instance/embeddings_data.json'
+    with open(json_file_path, 'r') as file:
+        content = file.read()
+    try:
+        data = json.loads(content)
+    except json.JSONDecodeError:
+        cleaned_content = '[' + content.replace('}\n{', '},{') + ']'
+        data = json.loads(cleaned_content)
+    df = pd.DataFrame(data)
+
+    data = request.get_json()
+    user_message = data['query']
+
+    passage = find_best_passage(user_message, df)
+    response = get_gemini_response(passage, user_message)
+    
+    return jsonify({"response": response})
 
 
+def find_best_passage(query, dataframe):
+  model = 'models/embedding-001'
+  query_embedding = genai.embed_content(model=model,
+                        content=query,
+                        task_type="retrieval_query")
+  dot_products = np.dot(np.stack(dataframe['Embeddings']), query_embedding["embedding"])
+  idx = np.argmax(dot_products)
+  return dataframe.iloc[idx]['Text']
 
-# Route for Medical Chatbot
+
+def get_gemini_response(context, query):
+    model = genai.GenerativeModel("gemini-1.5-flash")
+    prompt = f"You are a medical chatbot for symtoms analysis and disease information. Answer the following query using the context provided: \n\nQuery: {query}\n\nContext: {context} add disclaimer at the end 'educational purpose dont completely rely ' "
+
+    try:
+        response = model.generate_content(prompt)
+        return response.text.strip()
+
+    except Exception as e:
+        return f"Error: {str(e)}"
+
 @app.route('/medical_chatbot')
-@login_required
 def medical_chatbot():
-    return render_template('medical_chatbot.html')
-# ** dashboard end**
+    return render_template('chatbot.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

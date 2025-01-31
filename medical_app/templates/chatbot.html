@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediWise Chatbot</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Helvetica Neue', sans-serif;
+            background-color: #f8f9fa;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .chat-container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .chat-header {
+            background-color: #28a745; /* Green for Healthcare */
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 1.25rem;
+            font-weight: bold;
+            border-radius: 15px 15px 0 0;
+        }
+        .chat-box {
+            flex-grow: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background-color: #f1f1f1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .message {
+            display: inline-block;
+            padding: 12px 18px;
+            border-radius: 25px;
+            max-width: 75%;
+            word-wrap: break-word;
+            line-height: 1.4;
+            font-size: 14px;
+        }
+        .user-message {
+            background-color: #28a745;
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 0;
+        }
+        .bot-message {
+            background-color: #e5e5e5;
+            color: #333;
+            align-self: flex-start;
+            border-bottom-left-radius: 0;
+        }
+        .input-container {
+            display: flex;
+            padding: 15px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #userMessage {
+            width: 80%;
+            padding: 10px;
+            font-size: 14px;
+            border: 1px solid #ddd;
+            border-radius: 25px;
+            outline: none;
+        }
+        #sendBtn {
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        #sendBtn:hover { background-color: #218838; }
+        #sendBtn:disabled { background-color: #ccc; cursor: not-allowed; }
+    </style>
+</head>
+<body>
+
+    <div class="chat-container">
+        <div class="chat-header">MediWise AI Chatbot</div>
+        <div id="chatBox" class="chat-box">
+            <div class="bot-message">Hello! I'm MediWise, your AI-powered healthcare assistant. How can I help you today?</div>
+        </div>
+        <div class="input-container">
+            <input type="text" id="userMessage" placeholder="" oninput="enableSendButton()">
+            <button id="sendBtn" onclick="sendMessage()" disabled>Send</button>
+        </div>
+    </div>
+
+    <script>
+        function enableSendButton() {
+            const userMessage = document.getElementById('userMessage').value.trim();
+            document.getElementById('sendBtn').disabled = userMessage === "";
+        }
+
+        function sendMessage() {
+            const userMessage = document.getElementById('userMessage').value.trim();
+            if (!userMessage) return;
+
+            // Append user message
+            const chatBox = document.getElementById('chatBox');
+            const userMessageDiv = document.createElement('div');
+            userMessageDiv.classList.add('message', 'user-message');
+            userMessageDiv.textContent = userMessage;
+            chatBox.appendChild(userMessageDiv);
+
+            // Clear input field
+            document.getElementById('userMessage').value = '';
+            document.getElementById('sendBtn').disabled = true;
+
+            // Scroll to latest message
+            chatBox.scrollTop = chatBox.scrollHeight;
+
+            // Send to backend
+            fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ query: userMessage })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Append bot response
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.classList.add('message', 'bot-message');
+                botMessageDiv.textContent = data.response;
+                chatBox.appendChild(botMessageDiv);
+
+                // Scroll to latest message
+                chatBox.scrollTop = chatBox.scrollHeight;
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                const botMessageDiv = document.createElement('div');
+                botMessageDiv.classList.add('message', 'bot-message');
+                botMessageDiv.textContent = "Sorry, I couldn't process your request. Please try again.";
+                chatBox.appendChild(botMessageDiv);
+                chatBox.scrollTop = chatBox.scrollHeight;
+            });
+        }
+    </script>
+
+</body>
+</html>
