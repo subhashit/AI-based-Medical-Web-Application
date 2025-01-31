@@ -1,3 +1,4 @@
+.appenv/
 .venv/
 .dist/
 .vscode/
