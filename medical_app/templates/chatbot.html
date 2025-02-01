@@ -8,36 +8,53 @@
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Helvetica Neue', sans-serif;
-            background-color: #f8f9fa;
+            background-color: #eef2f3;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             height: 100vh;
+        }
+        .navbar {
+            background-color: #2C3E50;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .navbar a {
+            color: #ECF0F1;
+            font-size: 1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin: 0 10px;
+            text-decoration: none;
         }
         .chat-container {
             background-color: #fff;
             border-radius: 15px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
-            height: 600px;
+            width: 65%;
+            max-width: 800px;
+            height: 650px;
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            margin-top: 20px;
         }
         .chat-header {
-            background-color: #28a745; /* Green for Healthcare */
+            background-color: #1D976C; /* Updated to match MedWise background color */
             color: white;
             text-align: center;
             padding: 15px;
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             font-weight: bold;
             border-radius: 15px 15px 0 0;
         }
         .chat-box {
             flex-grow: 1;
-            padding: 15px;
+            padding: 20px;
             overflow-y: auto;
-            background-color: #f1f1f1;
+            background-color: #f9f9f9;
             display: flex;
             flex-direction: column;
             gap: 12px;
@@ -49,19 +66,27 @@
             max-width: 75%;
             word-wrap: break-word;
             line-height: 1.4;
-            font-size: 14px;
+            font-size: 16px;
         }
         .user-message {
-            background-color: #28a745;
+            background-color: #1D976C; /* Changed to match MedWise header color */
             color: white;
             align-self: flex-end;
             border-bottom-right-radius: 0;
         }
         .bot-message {
-            background-color: #e5e5e5;
+            background-color: #ecf0f1;
             color: #333;
             align-self: flex-start;
             border-bottom-left-radius: 0;
+        }
+        .bot-message:first-child {
+            font-weight: bold;
+            font-size: 18px;
+            color: #155724;
+            background-color: #D4EDDA;
+            padding: 14px;
+            border-left: 5px solid #28A745;
         }
         .input-container {
             display: flex;
@@ -73,34 +98,41 @@
         }
         #userMessage {
             width: 80%;
-            padding: 10px;
-            font-size: 14px;
+            padding: 12px;
+            font-size: 16px;
             border: 1px solid #ddd;
             border-radius: 25px;
             outline: none;
         }
         #sendBtn {
-            padding: 10px 20px;
-            background-color: #28a745;
+            padding: 12px 24px;
+            background-color: #1D976C;
             color: white;
             border: none;
             border-radius: 25px;
-            font-size: 14px;
+            font-size: 16px;
             cursor: pointer;
+            transition: background 0.3s;
         }
-        #sendBtn:hover { background-color: #218838; }
+        #sendBtn:hover { background-color: #12835A; }
         #sendBtn:disabled { background-color: #ccc; cursor: not-allowed; }
     </style>
 </head>
 <body>
+    
+    <div class="navbar">
+        <a href="/">Home</a>
+        <a href="{{ url_for('dashboard') }}">Dashboard</a>
+        <a href="{{ url_for('logout') }}">Logout</a>
+    </div>
 
     <div class="chat-container">
-        <div class="chat-header">MediWise AI Chatbot</div>
+        <div class="chat-header">MedWise AI Chatbot</div>
         <div id="chatBox" class="chat-box">
-            <div class="bot-message">Hello! I'm MediWise, your AI-powered healthcare assistant. How can I help you today?</div>
+            <div class="bot-message">Hello! I'm MedWise, your AI-powered healthcare assistant. How can I help you today?</div>
         </div>
         <div class="input-container">
-            <input type="text" id="userMessage" placeholder="" oninput="enableSendButton()">
+            <input type="text" id="userMessage" placeholder="Message MedWise" oninput="enableSendButton()" onkeydown="checkEnter(event)">
             <button id="sendBtn" onclick="sendMessage()" disabled>Send</button>
         </div>
     </div>
@@ -111,25 +143,26 @@
             document.getElementById('sendBtn').disabled = userMessage === "";
         }
 
+        function checkEnter(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        }
+
         function sendMessage() {
             const userMessage = document.getElementById('userMessage').value.trim();
             if (!userMessage) return;
 
-            // Append user message
             const chatBox = document.getElementById('chatBox');
             const userMessageDiv = document.createElement('div');
             userMessageDiv.classList.add('message', 'user-message');
             userMessageDiv.textContent = userMessage;
             chatBox.appendChild(userMessageDiv);
 
-            // Clear input field
             document.getElementById('userMessage').value = '';
             document.getElementById('sendBtn').disabled = true;
-
-            // Scroll to latest message
             chatBox.scrollTop = chatBox.scrollHeight;
 
-            // Send to backend
             fetch('/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -137,13 +170,10 @@
             })
             .then(response => response.json())
             .then(data => {
-                // Append bot response
                 const botMessageDiv = document.createElement('div');
                 botMessageDiv.classList.add('message', 'bot-message');
                 botMessageDiv.textContent = data.response;
                 chatBox.appendChild(botMessageDiv);
-
-                // Scroll to latest message
                 chatBox.scrollTop = chatBox.scrollHeight;
             })
             .catch(error => {
