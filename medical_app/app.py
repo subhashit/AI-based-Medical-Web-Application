@@ -382,7 +382,7 @@ def find_best_passage(query, dataframe):
 
 def get_gemini_response(context, query):
     model = genai.GenerativeModel("gemini-1.5-flash")
-    prompt = f"You are a medical chatbot for symtoms analysis and disease information. Answer the following query using the context provided: \n\nQuery: {query}\n\nContext: {context} add disclaimer at the end 'educational purpose dont completely rely ' "
+    prompt = f"You are a medical chatbot for healthcare and disease information. Answer the following query using the context provided: \n\nQuery: {query}\n\nContext: {context} add disclaimer at the end 'educational purpose dont completely rely ' "
 
     try:
         response = model.generate_content(prompt)
