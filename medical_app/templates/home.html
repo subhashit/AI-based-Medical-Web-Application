@@ -156,96 +156,75 @@
 
     <!-- Technologies Section -->
     <section class="features-section">
-        <div class="container">
-            <h2>Technologies We Use</h2>
+  <div class="container">
+    <h2 class="text-center mb-5">Technologies We Use</h2>
 
-            <div class="row">
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="card feature-card text-center p-3">
-                        <img src="static\images\html-icon.png" alt="HTML Icon" alt="HTML Icon" class="feature-icon">
-                        <p class="feature-title">HTML</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="card feature-card text-center p-3">
-                        <img src="{{ url_for('static', filename='images/css-icon.png') }}" alt="CSS Icon"
-                            class="feature-icon">
-                        <p class="feature-title">CSS</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="card feature-card text-center p-3">
-                        <img src="{{ url_for('static', filename='images/javascript-icon.png') }}" alt="JavaScript Icon"
-                            class="feature-icon">
-                        <p class="feature-title">JavaScript</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="card feature-card text-center p-3">
-                        <img src="{{ url_for('static', filename='images/bootstrap-icon.png') }}" alt="Bootstrap Icon"
-                            class="feature-icon">
-                        <p class="feature-title">Bootstrap</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="card feature-card text-center p-3">
-                        <img src="{{ url_for('static', filename='images/flask-icon.png') }}" alt="Flask Icon"
-                            class="feature-icon">
-                        <p class="feature-title">Flask</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="card feature-card text-center p-3">
-                        <img src="{{ url_for('static', filename='images/sql-icon.png') }}" alt="SQLAlchemy Icon"
-                            class="feature-icon">
-                        <p class="feature-title">SQLAlchemy</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="card feature-card text-center p-3">
-                        <img src="{{ url_for('static', filename='images/opencv-icon.png') }}" alt="OpenCV Icon"
-                            class="feature-icon">
-                        <p class="feature-title">OpenCV</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="card feature-card text-center p-3">
-                        <img src="{{ url_for('static', filename='images/tensorflow-icon.png') }}" alt="TensorFlow Icon"
-                            class="feature-icon">
-                        <p class="feature-title">TensorFlow</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="card feature-card text-center p-3">
-                        <img src="{{ url_for('static', filename='images/scikit-learn-logo.jpg') }}"
-                            alt="Scikit-Learn Icon" class="feature-icon">
-                        <p class="feature-title">Scikit-Learn</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="card feature-card text-center p-3">
-                        <img src="{{ url_for('static', filename='images/langchain-logo.jpg') }}" alt="LangChain Icon"
-                            class="feature-icon">
-                        <p class="feature-title">LangChain</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="card feature-card text-center p-3">
-                        <img src="{{ url_for('static', filename='images/openai-icon.png') }}" alt="OpenAI Icon"
-                            class="feature-icon">
-                        <p class="feature-title">OpenAI</p>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-6 mb-4">
-                    <div class="card feature-card text-center p-3">
-                        <img src="{{ url_for('static', filename='images/gorq-icon.jpg') }}" alt="Gorq Icon"
-                            class="feature-icon">
-                        <p class="feature-title">Gorq</p>
-                    </div>
-                </div>
-            </div>
+    <div class="row">
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card feature-card text-center p-3">
+          <img src="{{ url_for('static', filename='images/html-icon.png') }}" alt="HTML Icon" class="feature-icon">
+          <p class="feature-title">HTML</p>
         </div>
-    </section>
+      </div>
+
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card feature-card text-center p-3">
+          <img src="{{ url_for('static', filename='images/css-icon.png') }}" alt="CSS Icon" class="feature-icon">
+          <p class="feature-title">CSS</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card feature-card text-center p-3">
+          <img src="{{ url_for('static', filename='images/javascript-icon.png') }}" alt="JavaScript Icon" class="feature-icon">
+          <p class="feature-title">JavaScript</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card feature-card text-center p-3">
+          <img src="{{ url_for('static', filename='images/flask-icon.png') }}" alt="Flask Icon" class="feature-icon">
+          <p class="feature-title">Flask</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card feature-card text-center p-3">
+          <img src="{{ url_for('static', filename='images/sql-icon.png') }}" alt="SQLAlchemy Icon" class="feature-icon">
+          <p class="feature-title">SQLAlchemy</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card feature-card text-center p-3">
+          <img src="{{ url_for('static', filename='images/opencv-icon.png') }}" alt="OpenCV Icon" class="feature-icon">
+          <p class="feature-title">OpenCV</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card feature-card text-center p-3">
+          <img src="{{ url_for('static', filename='images/tensorflow-icon.png') }}" alt="TensorFlow Icon" class="feature-icon">
+          <p class="feature-title">TensorFlow</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card feature-card text-center p-3">
+          <img src="{{ url_for('static', filename='images/scikit-learn-logo.jpg') }}" alt="Scikit-Learn Icon" class="feature-icon">
+          <p class="feature-title">Scikit-Learn</p>
+        </div>
+      </div>
+
+      <div class="col-md-4 col-sm-6 mb-4">
+        <div class="card feature-card text-center p-3">
+          <img src="{{ url_for('static', filename='images/google-gemini-icon.jpg') }}" alt="Gemini Icon" class="feature-icon">
+          <p class="feature-title">Google Gemini</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
     <!-- Footer Section -->
     <footer class="footer">
